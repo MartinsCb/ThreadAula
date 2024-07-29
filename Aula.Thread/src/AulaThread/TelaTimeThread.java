@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -34,6 +36,10 @@ public class TelaTimeThread extends JDialog {
 			while (true) {
 				showTime.setText(new SimpleDateFormat("dd//MM/yyyy hh:mm.ss ").
 						format(Calendar.getInstance().getTime()));
+				
+				showTime2.setText(new SimpleDateFormat("dd//MM/yyyy hh:mm.ss ").
+						format(Calendar.getInstance().getTime())); // thread paralela
+				
 				try {
 					Thread.sleep(1000);//para não travar
 				} catch (InterruptedException e) {
@@ -94,7 +100,25 @@ public class TelaTimeThread extends JDialog {
 		gridBagConstraints.gridx ++;
 		jPanel.add(jButton2,gridBagConstraints);
 		
+		jButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {//execulta o clique no botão
+			
+				thread1 = new Thread(thread);
+				thread1.start();
+			}
+		});
 		
+		jButton2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thread1.stop();
+				
+			}
+			
+		});
 		
 		
 		add(jPanel,BorderLayout.WEST);
