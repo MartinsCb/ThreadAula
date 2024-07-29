@@ -21,10 +21,10 @@ public class TelaTimeThread extends JDialog {
     
     private JPanel jPanel = new JPanel(new GridBagLayout());
     
-    private JLabel descricaoHora = new JLabel("Time Thread");
+    private JLabel descricaoHora = new JLabel(" Date and Time ");
     private JTextField showTime = new JTextField();
     
-    private JLabel descricaoTemperatura = new JLabel("Temperatura em Celsius");
+    private JLabel descricaoTemperatura = new JLabel(" Weather Like ");
     private JTextField showTemperatura = new JTextField();
     
     private JButton jButton = new JButton("Start");
