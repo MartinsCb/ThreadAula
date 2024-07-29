@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -25,9 +27,30 @@ public class TelaTimeThread extends JDialog {
 	private JTextField showTime2 = new JTextField();
 	private JButton jButton = new JButton("Start");
 	private JButton jButton2 = new JButton("Stop");
+	private Runnable thread = new Runnable() {
+		
+		@Override
+		public void run() {
+			while (true) {
+				showTime.setText(new SimpleDateFormat("dd//MM/yyyy hh:mm.ss ").
+						format(Calendar.getInstance().getTime()));
+				try {
+					Thread.sleep(1000);//para não travar
+				} catch (InterruptedException e) {
+					
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	};
+	private Thread thread1;
+	
+	
+	
 	public TelaTimeThread() {
 		
-		setTitle("My first screen time with THread");
+		setTitle(" Screen Time ");
 		setSize(new Dimension(300, 300) );
 		setLocationRelativeTo(null);//centraliza a tela 
 		setResizable(false);// não permite alterar dimensões da tela 
