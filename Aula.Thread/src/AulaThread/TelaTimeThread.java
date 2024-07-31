@@ -21,52 +21,14 @@ public class TelaTimeThread extends JDialog {
     
     private JPanel jPanel = new JPanel(new GridBagLayout());
     
-    private JLabel descricaoHora = new JLabel(" Date and Time ");
+    private JLabel descricaoHora = new JLabel(" Name ");
     private JTextField showTime = new JTextField();
     
-    private JLabel descricaoTemperatura = new JLabel(" Weather Like ");
+    private JLabel descricaoTemperatura = new JLabel(" E-mail ");
     private JTextField showTemperatura = new JTextField();
     
-    private JButton jButton = new JButton("Start");
+    private JButton jButton = new JButton("Add list");
     private JButton jButton2 = new JButton("Stop");
-    
-    private Runnable threadHora = new Runnable() {
-        @Override
-        public void run() {
-            while (true) {
-                showTime.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").
-                        format(Calendar.getInstance().getTime()));
-                
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-    
-    private Runnable threadTemperatura = new Runnable() {
-        private Random random = new Random();
-        
-        @Override
-        public void run() {
-            while (true) {
-                // Simulando uma leitura de temperatura
-                double temperatura = 15 + (40 - 15) * random.nextDouble();
-                showTemperatura.setText(String.format("%.2f °C", temperatura));
-                
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-    
-    private Thread thread1;
-    private Thread thread2;
     
     public TelaTimeThread() {
         
@@ -87,7 +49,6 @@ public class TelaTimeThread extends JDialog {
         jPanel.add(descricaoHora, gridBagConstraints);
         
         showTime.setPreferredSize(new Dimension(250, 20));
-        showTime.setEditable(false);
         gridBagConstraints.gridy++;
         jPanel.add(showTime, gridBagConstraints);
         
@@ -96,7 +57,6 @@ public class TelaTimeThread extends JDialog {
         jPanel.add(descricaoTemperatura, gridBagConstraints);
         
         showTemperatura.setPreferredSize(new Dimension(250, 20));
-        showTemperatura.setEditable(false);
         gridBagConstraints.gridy++;
         jPanel.add(showTemperatura, gridBagConstraints);
         
@@ -113,10 +73,6 @@ public class TelaTimeThread extends JDialog {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                thread1 = new Thread(threadHora);
-                thread2 = new Thread(threadTemperatura);
-                thread1.start();
-                thread2.start();
                 
             }
         });
@@ -124,8 +80,7 @@ public class TelaTimeThread extends JDialog {
         jButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	thread1 = new Thread(thread1);
-				thread1.start();
+            	
 				
                 }
            
@@ -135,8 +90,7 @@ public class TelaTimeThread extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				thread1.stop();
-				thread2.stop();
+				
 				
 			}
 			
