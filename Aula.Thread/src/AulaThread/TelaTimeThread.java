@@ -1,4 +1,3 @@
-
 package AulaThread;
 
 import java.awt.BorderLayout;
@@ -8,9 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -21,14 +17,17 @@ public class TelaTimeThread extends JDialog {
     
     private JPanel jPanel = new JPanel(new GridBagLayout());
     
-    private JLabel descricaoHora = new JLabel(" Name ");
-    private JTextField showTime = new JTextField();
+    private JLabel descricaoNome = new JLabel("Name");
+    private JTextField showName = new JTextField();
     
-    private JLabel descricaoTemperatura = new JLabel(" E-mail ");
-    private JTextField showTemperatura = new JTextField();
+    private JLabel descricaoEmail = new JLabel("E-mail");
+    private JTextField showEmail = new JTextField();
     
-    private JButton jButton = new JButton("Add list");
+    private JButton jButton = new JButton("Add to list");
     private JButton jButton2 = new JButton("Stop");
+   
+    
+    private ImplementFileThread fila = new ImplementFileThread();
     
     public TelaTimeThread() {
         
@@ -45,20 +44,20 @@ public class TelaTimeThread extends JDialog {
         gridBagConstraints.insets = new Insets(5, 10, 5, 5);
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         
-        descricaoHora.setPreferredSize(new Dimension(250, 20));
-        jPanel.add(descricaoHora, gridBagConstraints);
+        descricaoNome.setPreferredSize(new Dimension(250, 20));
+        jPanel.add(descricaoNome, gridBagConstraints);
         
-        showTime.setPreferredSize(new Dimension(250, 20));
+        showName.setPreferredSize(new Dimension(250, 20));
         gridBagConstraints.gridy++;
-        jPanel.add(showTime, gridBagConstraints);
+        jPanel.add(showName, gridBagConstraints);
         
-        descricaoTemperatura.setPreferredSize(new Dimension(250, 20));
+        descricaoEmail.setPreferredSize(new Dimension(250, 20));
         gridBagConstraints.gridy++;
-        jPanel.add(descricaoTemperatura, gridBagConstraints);
+        jPanel.add(descricaoEmail, gridBagConstraints);
         
-        showTemperatura.setPreferredSize(new Dimension(250, 20));
+        showEmail.setPreferredSize(new Dimension(250, 20));
         gridBagConstraints.gridy++;
-        jPanel.add(showTemperatura, gridBagConstraints);
+        jPanel.add(showEmail, gridBagConstraints);
         
         gridBagConstraints.gridwidth = 1;
         
@@ -73,39 +72,32 @@ public class TelaTimeThread extends JDialog {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                ObjectFileThread filaThread = new ObjectFileThread();
+                filaThread.setName(showName.getText());
+                filaThread.setEmail(showEmail.getText());
+                fila.addFila(filaThread);
             }
         });
         
         jButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-				
-                }
-           
+                fila.stopFila();
+            }
         });
+       
         
-    	jButton2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-			
-		});
-    	
-    	
         add(jPanel, BorderLayout.WEST);
         setVisible(true);
+        
+        fila.start(); // Inicia a thread da fila
+       
     }
+   
+     
+    
     
     public static void main(String[] args) {
         new TelaTimeThread();
     }
 }
-
-
-
-
